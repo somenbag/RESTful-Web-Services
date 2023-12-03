@@ -17,3 +17,8 @@ spring:
 #      name: somen
 #      password: bag
 #      roles: ADMIN
+
+jwt:
+  secret: ae7f053b83a726806006363a9f88217c0ef50c07fc0aada4700e66adcc0396ed
+  expirationMs: 604800000 # Token expiration time in milliseconds (e.g., & days)
+
