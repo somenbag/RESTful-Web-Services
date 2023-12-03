@@ -6,6 +6,7 @@ import com.springboot.blogapp.exception.ResourceNotFoundException;
 import com.springboot.blogapp.payload.PostResponse;
 import com.springboot.blogapp.repository.PostRepository;
 import com.springboot.blogapp.service.PostService;
+import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -21,6 +22,9 @@ public class PostServiceImpl implements PostService {
 
     @Autowired
     PostRepository postRepo;
+    @Autowired
+    private ModelMapper mapper;
+
     @Override
     public PostDto createPost(PostDto postDto) {
         Post post = Post.builder()
@@ -82,20 +86,10 @@ public class PostServiceImpl implements PostService {
                 new ResourceNotFoundException("Post", "id", id));
         postRepo.delete(post);
     }
-
     private PostDto mapToDto(Post post){
-        PostDto postDto = new PostDto();
-        postDto.setId(post.getId());
-        postDto.setTitle(post.getTitle());
-        postDto.setDescription(post.getDescription());
-        postDto.setContent(post.getContent());
-        return postDto;
+        return mapper.map(post, PostDto.class);
     }
     private Post mapToEntity(PostDto postDto){
-        Post post = new Post();
-        post.setTitle(postDto.getTitle());
-        post.setDescription(postDto.getDescription());
-        post.setContent(postDto.getContent());
-        return post;
+        return mapper.map(postDto,Post.class);
     }
 }
