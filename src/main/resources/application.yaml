@@ -12,3 +12,8 @@ spring:
     properties:
       hibernate:
         format_sql: true
+#  security:
+#    user:
+#      name: somen
+#      password: bag
+#      roles: ADMIN
